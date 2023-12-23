@@ -1,4 +1,10 @@
 ---
+- name: Disable SSH host key checking
+  become: yes
+  lineinfile:
+    dest: /etc/ansible/ansible.cfg  # Adjust the path based on your Ansible configuration
+    line: "host_key_checking = False"
+    insertafter: "#host_key_checking = False"
 - name: Install Docker and Docker Compose
   hosts: ec2_instance
   become: yes
