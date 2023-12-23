@@ -1,5 +1,5 @@
 ---
-- name: Deploy Docker Containers
+- name: Setup inventory
   hosts: localhost
   gather_facts: false
   tasks:
@@ -9,12 +9,17 @@
 
     - name: Generate Ansible Inventory
       copy:
-        #content: |
-          #[ec2_instances]
-          #ec2_instance ansible_host={{ ec2_instance_ip.stdout }} ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/project/project1.pem
-        #dest: /home/ubuntu/project/inventory.ini
-        #dest: /var/lib/jenkins/inventory.ini
         content: |
           [ec2_instances]
           ec2_instance ansible_host={{ ec2_instance_ip.stdout }} ansible_user=ubuntu ansible_ssh_private_key_file=project1.pem
         dest: $WORKSPACE/inventory.ini
+
+- name: Disable SSH host key checking
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Add line to disable SSH host key checking in ansible.cfg
+      lineinfile:
+        path: /etc/ansible/ansible.cfg  
+        line: "host_key_checking = False"
+        insertafter: "[defaults]"
