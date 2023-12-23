@@ -12,5 +12,6 @@
         content: |
           [ec2_instances]
           ec2_instance ansible_host={{ ec2_instance_ip.stdout }} ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/project/project1.pem
-        dest: /home/ubuntu/project/inventory.ini
+        #dest: /home/ubuntu/project/inventory.ini
+        dest: /var/lib/jenkins/inventory.ini
 
