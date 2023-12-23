@@ -16,5 +16,5 @@
         #dest: /var/lib/jenkins/inventory.ini
         content: |
           [ec2_instances]
-          ec2_instance ansible_host={{ ec2_instance_ip.stdout }} ansible_user=ubuntu ansible_ssh_private_key_file=$WORKSPACE/project1.pem
+          ec2_instance ansible_host={{ ec2_instance_ip.stdout }} ansible_user=ubuntu ansible_ssh_private_key_file=project1.pem
         dest: $WORKSPACE/inventory.ini
