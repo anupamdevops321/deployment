@@ -1,0 +1,16 @@
+---
+- name: Deploy Docker Containers
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Fetch EC2 IP from Terraform output
+      shell: terraform output instance
+      register: ec2_instance_ip
+
+    - name: Generate Ansible Inventory
+      copy:
+        content: |
+          [ec2_instances]
+          ec2_instance ansible_host={{ ec2_instance_ip.stdout }} ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/project/project1.pem
+        dest: /home/ubuntu/project/inventory.ini
+

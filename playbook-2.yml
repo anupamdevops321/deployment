@@ -1,0 +1,55 @@
+---
+- name: Install Docker and Docker Compose
+  hosts: ec2_instance
+  become: yes
+  vars:
+    DOCKER_COMPOSE_VERSION: "latest"  # Specify the desired version
+    DOCKER_HUB_USERNAME: "anupamdutta3"
+    DOCKER_HUB_PASSWORD: "anuPAM666***"
+
+  tasks:
+    - name: Ensure repository key is installed
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Ensure docker registry is available
+      apt_repository:
+        repo: 'deb https://download.docker.com/linux/ubuntu bionic stable'
+        state: present
+
+    - name: Ensure docker and dependencies are installed
+      apt:
+        name: docker-ce
+        update_cache: yes
+
+    - name: Add ubuntu user to docker group
+      become: yes
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: Run the Docker Compose installation script
+      shell: "{{ lookup('file', 'install-docker-compose.sh') }}"
+
+    - name: Docker Hub Login
+      command: >
+        docker login -u {{ DOCKER_HUB_USERNAME }} -p {{ DOCKER_HUB_PASSWORD }}
+      register: docker_login_result
+      ignore_errors: yes
+
+    - name: Copy Docker Compose file
+      copy:
+        src: docker-compose.yml
+        dest: ~/docker-compose.yml
+
+    - name: Copy Docker .env file
+      copy:
+        src: "{{ playbook_dir }}/.env"
+        dest: ~/.env
+      become: yes
+
+    - name: Start Docker containers
+      command: docker-compose -f ~/docker-compose.yml up -d #REACT_APP_SERVER_URL=http://3.90.66.222:8080/employees
+        #        -COMPOSE_ENV_FILE: "~/.env"
