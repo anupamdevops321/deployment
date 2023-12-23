@@ -133,6 +133,10 @@ output "rds_db_name" {
 output "rds_security_group_id" {
   value = aws_security_group.rds_sg.id
 }
+output "instance" {
+  value = aws_instance.instance.public_ip
+}
+
 
 output "rds_username" {
   value = aws_db_instance.db_instance.username
