@@ -51,5 +51,4 @@
       become: yes
 
     - name: Start Docker containers
-      command: docker-compose -f ~/docker-compose.yml up -d #REACT_APP_SERVER_URL=http://3.90.66.222:8080/employees
-        #        -COMPOSE_ENV_FILE: "~/.env"
+      command: docker-compose -f ~/docker-compose.yml up -d
