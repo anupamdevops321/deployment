@@ -4,6 +4,7 @@ stages:
 
 variables:
   ANSIBLE_SSH_PRIVATE_KEY: ${CI_PROJECT_DIR}/project1.pem
+  DOCKER_CLI_TIMEOUT: 1200
 
 # ansible_gather_facts:
 #   image: alpine
