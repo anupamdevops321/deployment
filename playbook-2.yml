@@ -33,8 +33,8 @@
 
     - name: Docker Hub Login
       command: >
-        echo "glpat-stJHKDbwDiyT9P2_9Prz" | docker login -u GITLAB_TOKEN --password-stdin code.techverito.com:4567
-        #docker login -u anupamdutta -p glpat-EW--xisrwbdYUKzCJcUV code.techverito.com:4567
+        # echo "glpat-stJHKDbwDiyT9P2_9Prz" | docker login -u GITLAB_TOKEN --password-stdin code.techverito.com:4567
+        docker login -u anupamdutta -p glpat-stJHKDbwDiyT9P2_9Prz code.techverito.com:4567
       register: docker_login_result
       ignore_errors: yes
 
