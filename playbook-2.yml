@@ -33,7 +33,7 @@
 
     - name: Docker Hub Login
       command: >
-        docker login -u anupamdutta -p glpat-9kDRZUjcyRgf58UgHqpx code.techverito.com:4567
+        docker login -u anupamdutta -p glpat-EW--xisrwbdYUKzCJcUV code.techverito.com:4567
       register: docker_login_result
       ignore_errors: yes
 
