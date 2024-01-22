@@ -74,7 +74,7 @@ ingress {
 }
 
 resource "aws_db_subnet_group" "db_subnet_group-1" {
-  depends_on = [aws_db_instance.db_instance]
+  # depends_on = [aws_db_instance.db_instance]
   name       = "project-db-subnet-group"
   subnet_ids = aws_subnet.subnet[*].id
 }
