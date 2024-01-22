@@ -5,15 +5,15 @@ stages:
 variables:
   ANSIBLE_SSH_PRIVATE_KEY: ${CI_PROJECT_DIR}/project1.pem
 
-ansible_gather_facts:
-  image: alpine
-  tags:
-    - shell-1
-  stage: ansible_gather_facts
-  script:
-    - terraform init
-    - ansible --version
-    - ansible-playbook -i inventory.ini playbook-1.yml
+# ansible_gather_facts:
+#   image: alpine
+#   tags:
+#     - shell-1
+#   stage: ansible_gather_facts
+#   script:
+#     - terraform init
+#     - ansible --version
+#     - ansible-playbook -i inventory.ini playbook-1.yml
 
 ansible_final_deployment:
   image: alpine
@@ -21,7 +21,7 @@ ansible_final_deployment:
     - shell-1
   stage: ansible_final_deployment
   before_script:
-    - docker login -u anupamdutta -p glpat-w6XMtDHSVLvqqN8qTC2h code.techverito.com:4567
+    - docker login -u GITLAB_TOKEN -p glpat-stJHKDbwDiyT9P2_9Prz hcode.techverito.com:4567
   script:
     - chmod 400 project1.pem
     - ansible-playbook -i inventory.ini --private-key=project1.pem --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
