@@ -32,6 +32,7 @@
       shell: "{{ lookup('file', 'install-docker-compose.sh') }}"
 
     - name: Docker Hub Login
+      become: yes
       command: >
         # echo "glpat-stJHKDbwDiyT9P2_9Prz" | docker login -u GITLAB_TOKEN --password-stdin code.techverito.com:4567
         docker login -u anupamdutta -p glpat-stJHKDbwDiyT9P2_9Prz code.techverito.com:4567
