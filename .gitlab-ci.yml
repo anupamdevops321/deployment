@@ -21,7 +21,7 @@ ansible_final_deployment:
     - shell-1
   stage: ansible_final_deployment
   before_script:
-    - docker login -u anupamdutta -p $CI_REGISTRY_TOKEN code.techverito.com:4567
+    - docker login -u anupamdutta -p glpat-w6XMtDHSVLvqqN8qTC2h code.techverito.com:4567
   script:
     - chmod 400 project1.pem
     - ansible-playbook -i inventory.ini --private-key=project1.pem --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
