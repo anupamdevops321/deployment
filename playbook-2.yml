@@ -4,8 +4,8 @@
   become: yes
   vars:
     DOCKER_COMPOSE_VERSION: "latest"  # Specify the desired version
-    DOCKER_HUB_USERNAME: "anupamdutta3"
-    DOCKER_HUB_PASSWORD: "anuPAM666***"
+    DOCKER_HUB_USERNAME: "anupamdutta"
+    DOCKER_HUB_PASSWORD: "glpat-9kDRZUjcyRgf58UgHqpx"
 
   tasks:
     - name: Ensure repository key is installed
@@ -35,7 +35,7 @@
 
     - name: Docker Hub Login
       command: >
-        docker login -u {{ DOCKER_HUB_USERNAME }} -p {{ DOCKER_HUB_PASSWORD }}
+        docker login -u {{ DOCKER_HUB_USERNAME }} -p {{ DOCKER_HUB_PASSWORD }} code.techverito.com:4567
       register: docker_login_result
       ignore_errors: yes
 
