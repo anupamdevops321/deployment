@@ -73,7 +73,8 @@ ingress {
 
 }
 
-resource "aws_db_subnet_group" "db_subnet_group" {
+resource "aws_db_subnet_group" "db_subnet_group-1" {
+  depends_on = aws_db_instance.db_instance
   name       = "project-db-subnet-group"
   subnet_ids = aws_subnet.subnet[*].id
 }
@@ -90,7 +91,7 @@ resource "aws_db_instance" "db_instance" {
   password                = "anupam123" # Change to your desired password
   parameter_group_name    = "default.postgres15"
   publicly_accessible     = true
-  db_subnet_group_name    = aws_db_subnet_group.db_subnet_group.name
+  db_subnet_group_name    = aws_db_subnet_group.db_subnet_group-1.name
   skip_final_snapshot     = true
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
 
