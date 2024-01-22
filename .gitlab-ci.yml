@@ -18,7 +18,7 @@ ansible_gather_facts:
 ansible_final_deployment:
   image: alpine
   tags:
-    - shell
+    - shell-1
   stage: ansible_final_deployment
   before_script:
     - docker login -u anupamdutta -p $CI_REGISTRY_TOKEN code.techverito.com:4567
