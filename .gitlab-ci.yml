@@ -1,4 +1,4 @@
-tages:
+stages:
   - ansible_gather_facts
   - ansible_final_deployment
 
