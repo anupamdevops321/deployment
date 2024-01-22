@@ -4,8 +4,6 @@
   become: yes
   vars:
     DOCKER_COMPOSE_VERSION: "latest"  # Specify the desired version
-    DOCKER_HUB_USERNAME: "anupamdutta"
-    DOCKER_HUB_PASSWORD: "glpat-9kDRZUjcyRgf58UgHqpx"
 
   tasks:
     - name: Ensure repository key is installed
@@ -35,7 +33,7 @@
 
     - name: Docker Hub Login
       command: >
-        echo "$CI_REGISTRY_TOKEN" | docker login -u "$CI_REGISTRY_USER" --password-stdin code.techverito.com:4567
+        docker login -u anupamdutta -p $CI_REGISTRY_TOKEN code.techverito.com:4567
       register: docker_login_result
       ignore_errors: yes
 
