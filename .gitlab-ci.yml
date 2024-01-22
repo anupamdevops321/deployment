@@ -1,17 +1,27 @@
-stages:
-    - provision
+tages:
+  - ansible_gather_facts
+  - ansible_final_deployment
 
+variables:
+  ANSIBLE_SSH_PRIVATE_KEY: ${CI_PROJECT_DIR}/project1.pem
 
-terraform:
-  # image: alpine
+ansible_gather_facts:
+  image: alpine
   tags:
     - shell
-  stage: provision
-  before_script:
-    - mkdir -p ~/.aws
-    - echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY" > ~/.aws/credentials
+  stage: ansible_gather_facts
   script:
     - terraform init
-    - terraform fmt
-    - terraform plan -out tfplan
-    - terraform apply --auto-approve tfplan
+    - ansible --version
+    - ansible-playbook -i inventory.ini playbook-1.yml
+
+ansible_final_deployment:
+  image: alpine
+  tags:
+    - shell
+  stage: ansible_final_deployment
+  before_script:
+    - docker login -u anupamdutta -p $CI_REGISTRY_TOKEN code.techverito.com:4567
+  script:
+    - chmod 400 project1.pem
+    - ansible-playbook -i inventory.ini --private-key=project1.pem --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
