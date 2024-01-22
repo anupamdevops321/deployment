@@ -3,7 +3,7 @@ version: '3'
 services:
   backend:
     #    image: anupamdutta3/backend-testing-image:latest
-    image: anupamdutta3/backend-15
+    image: code.techverito.com:4567/anupamdutta/devops-fullstack-app/backend
     ports:
       - "8080:8080"
     environment:
@@ -18,7 +18,7 @@ services:
 
   frontend:
     #    image: anupamdutta3/frontend-image:latest
-    image: anupamdutta3/frontend-15
+    image: code.techverito.com:4567/anupamdutta/devops-fullstack-app/frontend
     ports:
       - "80:80"
     environment:
