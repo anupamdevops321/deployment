@@ -1,0 +1,17 @@
+stages:
+    - provision
+
+
+terraform:
+  image: alpine
+  tags:
+    - shell
+  stage: provision
+  before_script:
+    - mkdir -p ~/.aws
+    - echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY" > ~/.aws/credentials
+  script:
+    - terraform init
+    - terraform fmt
+    - terraform plan -out tfplan
+    - terraform apply --auto-approve tfplan
