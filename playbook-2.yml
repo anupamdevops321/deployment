@@ -35,7 +35,7 @@
 
     - name: Docker Hub Login
       command: >
-        docker login -u {{ DOCKER_HUB_USERNAME }} -p {{ DOCKER_HUB_PASSWORD }} code.techverito.com:4567
+        echo "$CI_REGISTRY_TOKEN" | docker login -u "$CI_REGISTRY_USER" --password-stdin code.techverito.com:4567
       register: docker_login_result
       ignore_errors: yes
 
