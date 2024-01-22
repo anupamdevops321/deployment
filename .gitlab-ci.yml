@@ -3,7 +3,7 @@ stages:
 
 
 terraform:
-  image: alpine
+  # image: alpine
   tags:
     - shell
   stage: provision
