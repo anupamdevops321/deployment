@@ -51,5 +51,5 @@
       become: yes
 
     - name: Start Docker containers
-      command: docker-compose -f ~/docker-compose.yml up -d
+      command: docker-compose -f ~/docker-compose.yml up -d --timeout 600
 
