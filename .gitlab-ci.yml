@@ -22,7 +22,8 @@ ansible_final_deployment:
     - shell-1
   stage: ansible_final_deployment
   before_script:
-    - docker login -u anupamdutta -p glpat-stJHKDbwDiyT9P2_9Prz code.techverito.com:4567
+    # - docker login -u anupamdutta -p glpat-stJHKDbwDiyT9P2_9Prz code.techverito.com:4567
+    - docker login -u anupamdutta -p glpat-xq_vs_gjy1W4PynfHCQK code.techverito.com:4567
   script:
     - chmod 400 project1.pem
     - ansible-playbook -i inventory.ini --private-key=project1.pem --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
