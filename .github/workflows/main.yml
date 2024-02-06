@@ -1,0 +1,52 @@
+name: Ansible Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ansible_final_deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Use community Ansible action
+      uses: appleboy/ansible-action@v2
+      with:
+        playbook: playbook-2.yml
+        inventory: inventory.ini
+        private-key: ${{ github.workspace }}/project1.pem
+        user: ubuntu
+        extra-vars: "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
+
+
+# name: Ansible Deployment
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   ansible_final_deployment:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       ANSIBLE_SSH_PRIVATE_KEY: ${{ github.workspace }}/project1.pem
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Install Ansible
+#       run: |
+#         sudo apt-get update
+#         sudo apt-get install -y ansible
+
+#     - name: Run Ansible playbook for final deployment
+#       run: |
+#         chmod 400 $ANSIBLE_SSH_PRIVATE_KEY
+#         ansible-playbook -i inventory.ini --private-key=$ANSIBLE_SSH_PRIVATE_KEY --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
