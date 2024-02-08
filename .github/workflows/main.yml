@@ -26,7 +26,7 @@ jobs:
       with:
        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
     - name: Run Ansible playbook
-      run: ansible-playbook -i inventory.ini playbook-2.yml
+      run: ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
 
     # - name: Run Ansible playbook for final deployment
     #   run: |
