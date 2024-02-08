@@ -21,9 +21,16 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ansible
 
-    - name: Run Ansible playbook for final deployment
-      run: |
-       # chmod 400 "$ANSIBLE_SSH_PRIVATE_KEY"
-       ansible-playbook -i inventory.ini --private-key <(echo "$ANSIBLE_SSH_PRIVATE_KEY") --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
-       env:
-       ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+       ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+    - name: Run Ansible playbook
+      run: ansible-playbook -i inventory.ini playbook-2.yml
+
+    # - name: Run Ansible playbook for final deployment
+    #   run: |
+    #    # chmod 400 "$ANSIBLE_SSH_PRIVATE_KEY"
+    #    ansible-playbook -i inventory.ini --private-key <(echo "$ANSIBLE_SSH_PRIVATE_KEY") --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
+    #    env:
+    #    ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
