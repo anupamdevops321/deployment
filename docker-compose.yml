@@ -4,7 +4,7 @@ services:
   backend:
     #image: anupamdutta3/backend-testing-image:latest
     #image: registry.gitlab.com/anupam.dutta753/infrastructure/backend
-    image: anupamdevops/backend-1:${TAG}
+    image: anupamdevops/backend-11:${{ github.event.client_payload.image_tag }}
 
     ports:
       - "8080:8080"
