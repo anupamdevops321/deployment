@@ -34,7 +34,6 @@
     - name: Docker Hub Login
       become: yes
       command: >
-        echo "glpat-xq_vs_gjy1W4PynfHCQK" | docker login -u ACCESS_TOKEN --password-stdin code.techverito.com:4567
         # docker login -u anupamdutta -p glpat-stJHKDbwDiyT9P2_9Prz code.techverito.com:4567
         # docker login -u anupamdutta -p glpat-xq_vs_gjy1W4PynfHCQK code.techverito.com:4567
       register: docker_login_result
