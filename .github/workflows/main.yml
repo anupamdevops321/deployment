@@ -40,7 +40,7 @@ jobs:
     #    TAG: $TAG
     - name: Start Docker containers
       run: |
-       export TAG=${TAG}
+       export TAG="testing"
        ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no' TAG=${TAG}" playbook-2.yml
        env:
         TAG: testing
