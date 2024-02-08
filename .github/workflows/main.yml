@@ -18,10 +18,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Ansible
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y ansible
+    # - name: Install Ansible
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y ansible
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.7.0
@@ -38,10 +38,17 @@ jobs:
     #   run: ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no' TAG=${TAG}" playbook-2.yml
     #   env:
     #    TAG: $TAG
-    - name: Start Docker containers
-      run: |
-       export TAG="testing"
-       ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
+
+    - name: action-docker-compose
+      uses: sudo-bot/action-docker-compose@latest
+      with:
+          # Command line arguments for docker-compose up
+       cli-args: up -d
+    
+    # - name: Start Docker containers
+    #   run: |
+    #    export TAG="testing"
+    #    ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
 
     # - name: Run Ansible playbook for final deployment
     #   run: |
