@@ -55,7 +55,7 @@
     #   command: docker-compose -f ~/docker-compose.yml up -d
     - name: Install required Python libraries
       pip:
-      name: docker
+       name: docker
        state: present
        
     - name: Start Docker containers
