@@ -21,11 +21,26 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ansible
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.3
+    # - name: Set up SSH
+    #   uses: webfactory/ssh-agent@v0.5.3
+    #   with:
+    #    ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+    #    log-public-key: false
+
+    - name: ssh-scp-ssh-pipelines
+  # You may pin to the exact commit or the version.
+  # uses: cross-the-world/ssh-scp-ssh-pipelines@78e864b4890087a58248ff39320406971ca88b89
+      uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
       with:
-       ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-       log-public-key: false
+    # ssh remote host
+       host: ec2-3-90-236-140.compute-1.amazonaws.com
+    # ssh remote user
+       user: ubuntu
+    # content of ssh private key. ex raw content of ~/.ssh/id_rsa
+       key: ${{ secrets.PRIVATE_KEY }}
+
+          
+    
     - name: Run Ansible playbook
       run: ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
 
