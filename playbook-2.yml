@@ -51,15 +51,5 @@
     #     dest: ~/.env
     #   become: yes
 
-    # - name: Start Docker containers
-    #   command: docker-compose -f ~/docker-compose.yml up -d
-    - name: Install required Python libraries
-      pip:
-       name: docker
-       state: present
-       
     - name: Start Docker containers
-      docker_compose:
-        project_src: ~/  
-        state: present
-        env_file: ~/.env
+      command: docker-compose -f ~/docker-compose.yml up -d
