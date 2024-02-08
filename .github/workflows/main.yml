@@ -29,6 +29,8 @@ jobs:
     - name: Set TAG variable
       run: echo "TAG=${{ github.event.client_payload.image_tag }}" >> $GITHUB_ENV
 
+    - name: Print TAG variable
+      run: echo "TAG is $TAG"
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.7.0
