@@ -57,6 +57,6 @@
     - name: Start Docker containers
       docker_compose:
         project_src: ~/  
-        state: started    
+        state: present
         environment:
           TAG: "{{ lookup('env', 'TAG') }}"
