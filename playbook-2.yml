@@ -51,6 +51,12 @@
     #     dest: ~/.env
     #   become: yes
 
-    - name: Start Docker containers
-      command: docker-compose -f ~/docker-compose.yml up -d
+    # - name: Start Docker containers
+    #   command: docker-compose -f ~/docker-compose.yml up -d
 
+    - name: Start Docker containers
+      docker_compose:
+        project_src: ~/  
+        state: started    
+        environment:
+          TAG: "{{ lookup('env', 'TAG') }}"
