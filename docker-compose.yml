@@ -24,6 +24,5 @@ services:
     image: anupamdevops/frontend-1:${TAG:-latest}
     ports:
       - "80:80"
-    environment:
-      REACT_APP_SERVER_URL: http://3.90.66.222:8080/employees # ${REACT_APP_SERVER_URL}
+
 
