@@ -9,8 +9,8 @@ jobs:
   ansible_final_deployment:
     runs-on: ubuntu-latest
 
-    env:
-      ANSIBLE_SSH_PRIVATE_KEY: ${{ github.workspace }}/project5.pem
+    # env:
+    #   ANSIBLE_SSH_PRIVATE_KEY: ${{ github.workspace }}/project5.pem
 
     steps:
     - name: Checkout code
