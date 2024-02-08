@@ -9,7 +9,9 @@ on:
       - main
   repository_dispatch:
     types: [trigger-ansible]
-
+env:
+ TAG: ${{ github.event.client_payload.image_tag }}
+ 
 jobs:
   ansible_final_deployment:
     runs-on: ubuntu-latest
