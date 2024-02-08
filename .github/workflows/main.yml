@@ -44,4 +44,4 @@ jobs:
     - name: Start Docker containers
       run: |
        export TAG="testing"
-       ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
+       ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no' TAG=testing" playbook-2.yml
