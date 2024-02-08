@@ -34,10 +34,17 @@ jobs:
     - name: Print TAG variable
       run: echo "TAG is $TAG"
       
-    - name: Run Ansible playbook
-      run: ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no' TAG=${TAG}" playbook-2.yml
-      env:
-       TAG: $TAG
+    # - name: Run Ansible playbook
+    #   run: ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no' TAG=${TAG}" playbook-2.yml
+    #   env:
+    #    TAG: $TAG
+    - name: Start Docker containers
+      run: |
+       export TAG=${TAG}
+       docker-compose -f ~/docker-compose.yml up -d
+       env:
+        TAG: ${{ github.event.client_payload.image_tag }}
+
     # - name: Run Ansible playbook for final deployment
     #   run: |
     #    ansible-playbook -i inventory.ini --private-key <(echo "$ANSIBLE_SSH_PRIVATE_KEY") --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
