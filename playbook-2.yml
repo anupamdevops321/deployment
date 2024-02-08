@@ -58,5 +58,4 @@
       docker_compose:
         project_src: ~/  
         state: present
-        env:
-          TAG: "{{ lookup('env', 'TAG') }}"
+        env_file: ~/.env
