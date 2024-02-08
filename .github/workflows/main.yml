@@ -36,7 +36,7 @@ jobs:
        log-public-key: false
     
     - name: Run Ansible playbook
-      run: ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no' TAG=$TAG" playbook-2.yml
+      run: ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no' TAG=3c49" playbook-2.yml
       env:
        TAG: $TAG
     # - name: Run Ansible playbook for final deployment
