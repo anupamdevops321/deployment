@@ -33,7 +33,9 @@
 
     - name: Docker Hub Login
       become: yes
-      command: >
+      docker_login:
+        username: "{{ lookup('env', 'DOCKERHUB_USERNAME') }}"
+        password: "{{ lookup('env', 'DOCKERHUB_PASSWORD') }}"
        
       register: docker_login_result
       ignore_errors: yes
@@ -43,11 +45,11 @@
         src: docker-compose.yml
         dest: ~/docker-compose.yml
 
-    - name: Copy Docker .env file
-      copy:
-        src: "{{ playbook_dir }}/.env"
-        dest: ~/.env
-      become: yes
+    # - name: Copy Docker .env file
+    #   copy:
+    #     src: "{{ playbook_dir }}/.env"
+    #     dest: ~/.env
+    #   become: yes
 
     - name: Start Docker containers
       command: docker-compose -f ~/docker-compose.yml up -d
