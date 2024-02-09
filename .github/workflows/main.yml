@@ -35,11 +35,6 @@ jobs:
           mv ./*.json reports/
         if: always()
 
-      - name: Upload scan report
-        uses: actions/upload-artifact@v2
-        with:
-          name: gitguardian-scan-report
-          path: reports/
       # - name: Run Trivy vulnerability scanner in repo mode
       #   uses: aquasecurity/trivy-action@master
       #   with:
