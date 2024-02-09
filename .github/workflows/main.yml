@@ -20,10 +20,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: trufflehog-actions-scan
-      uses: edplato/trufflehog-actions-scan@master
+    - name: Run trufflehog
+      run: trufflehog --no-update filesystem --directory=${{ github.workspace }} --json > /tmp/trufflehog.json
+
+    # Upload the scan output
+    - name: Upload the scan output
+      uses: actions/upload-artifact@v2
       with:
-       scanArguments: "--regex --entropy=False --max_depth=5 --rules /regexes.json"
+       name: scan_results
+       path: /tmp/trufflehog.json
+       retention-days: 2
      
         
     - name: Install Ansible
