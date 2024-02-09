@@ -15,7 +15,7 @@ env:
 jobs:
 
   scanning:
-    name: GitGuardian scan
+    name: GitGuardian scan and Trivy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,7 +29,20 @@ jobs:
           GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
           GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           GITGUARDIAN_API_KEY: 5f5B8bBBdf40fbdFe3Aa9bbBB2893e7dfb8bEbe0D0FfCbCDDA8a02bE06080C347cF4cee
+      
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL'
 
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
   ansible_final_deployment:
     runs-on: ubuntu-latest
 
