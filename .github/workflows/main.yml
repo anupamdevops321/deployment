@@ -19,17 +19,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Run trufflehog
-      run: trufflehog --no-update filesystem --directory=${{ github.workspace }} --json > /tmp/trufflehog.json
-
-    # Upload the scan output
-    - name: Upload the scan output
-      uses: actions/upload-artifact@v2
-      with:
-       name: scan_results
-       path: /tmp/trufflehog.json
-       retention-days: 2
      
         
     - name: Install Ansible
