@@ -29,7 +29,17 @@ jobs:
           GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
           GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
           GITGUARDIAN_API_KEY: ${{ secrets.GGS_TOKEN }}
-      
+      - name: Save scan report
+        run: |
+          mkdir -p reports
+          mv ./*.json reports/
+        if: always()
+
+      - name: Upload scan report
+        uses: actions/upload-artifact@v2
+        with:
+          name: gitguardian-scan-report
+          path: reports/
       # - name: Run Trivy vulnerability scanner in repo mode
       #   uses: aquasecurity/trivy-action@master
       #   with:
