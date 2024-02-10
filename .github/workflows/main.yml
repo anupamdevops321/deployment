@@ -59,7 +59,7 @@ jobs:
       uses: canastro/copy-file-action@master
       with:
         source: "main.tf"
-        target: "~/"
+        target: "$HOME"
       
     - name: Start Docker containers
       run: |
