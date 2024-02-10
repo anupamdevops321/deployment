@@ -54,7 +54,10 @@ jobs:
 
     - name: Print TAG variable
       run: echo "TAG is $TAG"
-    
+
+    - name: Set TAG variable
+      run: echo "TAG=${{ github.event.client_payload.image_tag }}" > .env
+      
     - name: Start Docker containers
       run: |
        export TAG="testing"
