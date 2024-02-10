@@ -55,8 +55,11 @@ jobs:
     - name: Print TAG variable
       run: echo "TAG is $TAG"
 
-    - name: Set TAG variable
-      run: echo "TAG=${{ github.event.client_payload.image_tag }}" > .env
+    - name: copy file
+      uses: canastro/copy-file-action@master
+      with:
+        source: "main.tf"
+        target: "~/"
       
     - name: Start Docker containers
       run: |
