@@ -51,6 +51,6 @@
     #     dest: ~/.env
     #   become: yes
     - name: Set image tag
-      ansible.builtin.shell: "export TAG=testenv"
+      shell: "export TAG=testing"
     - name: Start Docker containers
       command: docker-compose -f ~/docker-compose.yml up -d
