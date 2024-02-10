@@ -3,9 +3,9 @@ version: '3'
 services:
   backend:
     #image: anupamdutta3/backend-testing-image:latest
-    #image: registry.gitlab.com/anupam.dutta753/infrastructure/backend
-    image: anupamdevops/backend-1:${TAG:-latest}
-
+    #image: anupamdevops/backend-1:${TAG:-latest}
+    image: anupamdevops/backend-1:${TAG}
+    
     ports:
       - "8080:8080"
     environment:
@@ -20,9 +20,9 @@ services:
       - frontend
 
   frontend:
-    #    image: anupamdutta3/frontend-image:latest
     #image: registry.gitlab.com/anupam.dutta753/infrastructure/frontend
-    image: anupamdevops/frontend-1:${TAG:-latest}
+    # image: anupamdevops/frontend-1:${TAG:-latest}
+    image: anupamdevops/frontend-1:${TAG}
     ports:
       - "80:80"
 
