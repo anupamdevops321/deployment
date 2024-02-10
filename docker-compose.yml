@@ -25,5 +25,7 @@ services:
     image: anupamdevops/frontend-1:${TAG}
     ports:
       - "80:80"
+    environment:
+      TAG: "testenv"
 
 
