@@ -15,7 +15,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_PORT: ${DB_PORT}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
-      TAG: ${TAG}
+      TAG: "testenv"
     depends_on:
       - frontend
 
