@@ -50,6 +50,7 @@
     #     src: "{{ playbook_dir }}/.env"
     #     dest: ~/.env
     #   become: yes
-
+    - name: Set image tag
+      command: export TAG="testenv"
     - name: Start Docker containers
       command: docker-compose -f ~/docker-compose.yml up -d
