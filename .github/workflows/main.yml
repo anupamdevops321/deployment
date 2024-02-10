@@ -58,7 +58,7 @@ jobs:
     - name: copy file
       uses: canastro/copy-file-action@master
       with:
-        source: "main.tf"
+        source: ".env"
         target: "$HOME/"
       
     - name: Start Docker containers
