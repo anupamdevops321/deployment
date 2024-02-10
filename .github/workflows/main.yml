@@ -50,7 +50,7 @@ jobs:
        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
        log-public-key: false
     - name: Set TAG variable
-      run: echo "TAG=${{ github.event.client_payload.image_tag }}" >> $GITHUB_ENV
+      run: echo "TAG=${{ github.event.client_payload.image_tag }}" > .env
 
     - name: Print TAG variable
       run: echo "TAG is $TAG"
