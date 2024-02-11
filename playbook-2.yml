@@ -47,12 +47,10 @@
 
     - name: Copy Docker .env file
       copy:
-        # src: "{{ playbook_dir }}/.env"
-        src: "home/ubuntu/.env"
-        dest: ~/.env
+        src: "{{ playbook_dir }}/.env"
+        # dest: ~/.env
+        dest: home/ubuntu/.env
       become: yes
-    - name: Set image tag
-      ansible.builtin.set_fact:
-        TAG: testenv
+
     - name: Start Docker containers
       command: docker-compose -f ~/docker-compose.yml up -d
