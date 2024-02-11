@@ -10,7 +10,7 @@ on:
   repository_dispatch:
     types: [trigger-ansible]
 env:
- TAG: "testing"
+ TAG: "latest"
  DB_HOST: "${{ secrets.DB_HOST }}"
  DB_USER: "${{ secrets.DB_USER }}"
  DB_PASSWORD=: ${{ secrets.DB_PASSWORD }}"
@@ -51,14 +51,14 @@ jobs:
 
       - name: Print secrets
         run: echo ${{ secrets.DB_HOST }}
-      - name: Export environment variables
-        run: |
-            export DB_HOST=$DB_HOST
-            export DB_USER=$DB_USER
-            export DB_PASSWORD=$DB_PASSWORD
-            export DB_NAME=$DB_NAME
-            export DB_PORT=$DB_PORT
-            export ALLOWED_ORIGINS=$ALLOWED_ORIGINS
+      # - name: Export environment variables
+      #   run: |
+      #       export DB_HOST=$DB_HOST
+      #       export DB_USER=$DB_USER
+      #       export DB_PASSWORD=$DB_PASSWORD
+      #       export DB_NAME=$DB_NAME
+      #       export DB_PORT=$DB_PORT
+      #       export ALLOWED_ORIGINS=$ALLOWED_ORIGINS
             
       - name: SSH into EC2 and deploy containers
         run: docker-compose up -d
