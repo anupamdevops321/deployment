@@ -11,6 +11,12 @@ on:
     types: [trigger-ansible]
 env:
  TAG: "testing"
+ DB_HOST: "${{ secrets.DB_HOST }}"
+ DB_USER: "${{ secrets.DB_USER }}"
+ DB_PASSWORD=: ${{ secrets.DB_PASSWORD }}"
+ DB_NAM: "${{ secrets.DB_NAME }}"
+ DB_PORT: "${{ secrets.DB_PORT }}"
+ ALLOWED_ORIGINS: "${{ secrets.ALLOWED_ORIGINS }}"
 
 jobs:
   deploy:
@@ -47,12 +53,12 @@ jobs:
         run: echo ${{ secrets.DB_HOST }}
       - name: Export environment variables
         run: |
-            export DB_HOST="${{ secrets.DB_HOST }}"
-            export DB_USER="${{ secrets.DB_USER }}"
-            export DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
-            export DB_NAME="${{ secrets.DB_NAME }}"
-            export DB_PORT="${{ secrets.DB_PORT }}"
-            export ALLOWED_ORIGINS="${{ secrets.ALLOWED_ORIGINS }}"
+            export DB_HOST=$DB_HOST
+            export DB_USER=$DB_USER
+            export DB_PASSWORD=$DB_PASSWORD
+            export DB_NAME=$DB_NAME
+            export DB_PORT=$DB_PORT
+            export ALLOWED_ORIGINS=$ALLOWED_ORIGINS
             
       - name: SSH into EC2 and deploy containers
         run: docker-compose up -d
