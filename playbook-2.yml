@@ -45,22 +45,14 @@
         src: docker-compose.yml
         dest: ~/docker-compose.yml
 
-    # - name: Copy Docker .env file
-    #   copy:
-    #     src: "{{ playbook_dir }}/.env"
-    #     # dest: ~/.env
-    #     dest: /home/ubuntu/.env
-    #   become: yes
+    - name: Copy Docker .env file
+      copy:
+        src: "{{ playbook_dir }}/.env"
+        # dest: ~/.env
+        dest: /home/ubuntu/.env
+      become: yes
 
     - name: Start Docker containers
       command: docker-compose -f ~/docker-compose.yml up -d
 
-    - name: Export environment variables
-      shell: |
-        echo 'export DB_HOST="{{ lookup('env', 'DB_HOST') }}"' >> /home/ubuntu/.bashrc
-        echo 'export DB_USER="{{ lookup('env', 'DB_USER') }}"' >> /home/ubuntu/.bashrc
-        echo 'export DB_PASSWORD="{{ lookup('env', 'DB_PASSWORD') }}"' >> /home/ubuntu/.bashrc
-        echo 'export DB_NAME="{{ lookup('env', 'DB_NAME') }}"' >> /home/ubuntu/.bashrc
-        echo 'export DB_PORT="{{ lookup('env', 'DB_PORT') }}"' >> /home/ubuntu/.bashrc
-        echo 'export ALLOWED_ORIGINS="{{ lookup('env', 'ALLOWED_ORIGINS') }}"' >> /home/ubuntu/.bashrc
-      become_user: ubuntu
+
