@@ -45,11 +45,11 @@
         src: docker-compose.yml
         dest: ~/docker-compose.yml
 
-    # - name: Copy Docker .env file
-    #   copy:
-    #     src: "{{ playbook_dir }}/.env"
-    #     dest: ~/.env
-    #   become: yes
+    - name: Copy Docker .env file
+      copy:
+        src: "{{ playbook_dir }}/.env"
+        dest: ~/.env
+      become: yes
     - name: Set image tag
       ansible.builtin.set_fact:
         TAG: testenv
