@@ -9,9 +9,8 @@ on:
       - main
   repository_dispatch:
     types: [trigger-ansible]
-# env:
-#  TAG: ${{ github.event.client_payload.image_tag }}
-
+env:
+ TAG: "testing"
 
 jobs:
   deploy:
