@@ -37,7 +37,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-     
         
     - name: Install Ansible
       run: |
@@ -50,16 +49,10 @@ jobs:
        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
        log-public-key: false
     - name: Set TAG variable
-      run: echo "TAG=${{ github.event.client_payload.image_tag }}" > .env
+      run: echo "TAG=${{ github.event.client_payload.image_tag }}" > $GITHUB_ENV
 
     - name: Print TAG variable
       run: echo "TAG is $TAG"
-
-    - name: copy file
-      uses: canastro/copy-file-action@master
-      with:
-        source: ".env"
-        target: "$HOME/"
       
     - name: Start Docker containers
       run: |
