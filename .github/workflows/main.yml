@@ -65,7 +65,7 @@ jobs:
         name: Docker-Compose Remote Deployment
         with:
          ssh_host: 54.221.2.22
-         ssh_private_key: ${{ secrets.PRIVATE_KEY }}
+         ssh_private_key: ${{ secrets.SSH_KEY }}
          ssh_user: ububtu
         
 
