@@ -58,9 +58,9 @@
     - name: Set environment variables
       set_fact:
        TAG: "test_tag"
-       DB_HOST: "{{ lookup('env', 'DB_HOST') }}"
-       DB_USER: "{{ lookup('env', 'DB_USER') }}"
-       DB_PASSWORD: "{{ lookup('env', 'DB_PASSWORD') }}"
-       DB_NAME: "{{ lookup('env', 'DB_NAME') }}"
-       DB_PORT: "{{ lookup('env', 'DB_PORT') }}"
-       ALLOWED_ORIGINS: "{{ lookup('env', 'ALLOWED_ORIGINS') }}"
+       DB_HOST: $DB_HOST
+       DB_USER: $DB_USER
+       DB_PASSWORD: $DB_PASSWORD
+       DB_NAME: $DB_NAME
+       DB_PORT: $DB_PORT
+       ALLOWED_ORIGINS: $ALLOWED_ORIGINS
