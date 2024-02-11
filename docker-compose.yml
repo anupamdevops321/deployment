@@ -15,7 +15,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_PORT: ${DB_PORT}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
-      TAG: ${{ secrets.TAG }}
+      TAG: ${TAG}
     depends_on:
       - frontend
 
@@ -26,6 +26,6 @@ services:
     ports:
       - "80:80"
     environment:
-      TAG: ${{ secrets.TAG }}
+      TAG: ${TAG}
 
 
