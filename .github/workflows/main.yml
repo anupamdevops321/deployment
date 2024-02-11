@@ -61,6 +61,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 100.26.48.145
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: whoami
+    
       - uses: alex-ac/github-action-ssh-docker-compose@master
         name: Docker-Compose Remote Deployment
         with:
