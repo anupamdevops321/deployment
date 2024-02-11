@@ -35,6 +35,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Append Image Tag to .env file
+      run: |
+        echo "workflow" >> .env
+        
     - name: Checkout code
       uses: actions/checkout@v2
         
