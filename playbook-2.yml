@@ -47,9 +47,9 @@
 
     - name: Copy Docker .env file
       copy:
-        src: "{{ playbook_dir }}/.env"
+        src: "{{ playbook_dir }}/docker-compose.yml"
         # dest: ~/.env
-        dest: /home/ubuntu/.env
+        dest: /home/ubuntu/docker-compose.yml
       become: yes
 
     - name: Start Docker containers
