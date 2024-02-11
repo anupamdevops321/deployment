@@ -43,8 +43,18 @@ jobs:
          host: 54.221.2.22
          user: ubuntu
          key: ${{ secrets.PRIVATE_KEY }}
-        
 
+      - name: Print secrets
+        run: echo ${{ secrets.DB_HOST }}
+      - name: Export environment variables
+        run: |
+            export DB_HOST="${{ secrets.DB_HOST }}"
+            export DB_USER="${{ secrets.DB_USER }}"
+            export DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+            export DB_NAME="${{ secrets.DB_NAME }}"
+            export DB_PORT="${{ secrets.DB_PORT }}"
+            export ALLOWED_ORIGINS="${{ secrets.ALLOWED_ORIGINS }}"
+            
       - name: SSH into EC2 and deploy containers
         run: docker-compose up -d
         
