@@ -68,7 +68,14 @@ jobs:
          ssh_private_key: ${{ secrets.PRIVATE_KEY }}
          ssh_user: ubuntu
          docker_compose_filename: /home/ubuntu/docker-compose.yml
-         args:  TAG=$TAG
+        env:
+         TAG: "test_tag"
+         DB_HOST: "${{ secrets.DB_HOST }}"
+         DB_USER: "${{ secrets.DB_USER }}"
+         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}"
+         DB_NAME: "${{ secrets.DB_NAME }}"
+         DB_PORT: "${{ secrets.DB_PORT }}"
+         ALLOWED_ORIGINS: "${{ secrets.ALLOWED_ORIGINS }}"
         
 
 
