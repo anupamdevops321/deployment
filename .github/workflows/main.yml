@@ -32,7 +32,7 @@ jobs:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Copy Docker Compose file to EC2
-        run: scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@54.221.2.22:~/docker-compose.yml
+        run: scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@100.26.48.145:~/docker-compose.yml
 
       - name: ssh-scp-ssh-pipelines
         uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
