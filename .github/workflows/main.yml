@@ -37,7 +37,7 @@ jobs:
       - name: ssh-scp-ssh-pipelines
         uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
         with:
-         host: 54.221.2.22
+         host: 100.26.48.145
          user: ubuntu
          key: ${{ secrets.PRIVATE_KEY }}
 
