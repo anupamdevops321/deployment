@@ -9,59 +9,108 @@ on:
       - main
   repository_dispatch:
     types: [trigger-ansible]
-env:
- TAG: ${{ github.event.client_payload.image_tag }}
- 
-jobs:
+# env:
+#  TAG: ${{ github.event.client_payload.image_tag }}
 
-  scanning:
-    name: GitGuardian scan and Trivy
+
+jobs:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          fetch-depth: 0 # fetch all history so multiple commits can be scanned
-      - name: GitGuardian scan
-        uses: GitGuardian/ggshield-action@v1.24.0
-        env:
-          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
-          GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
-          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          GITGUARDIAN_API_KEY: ${{ secrets.GGS_TOKEN }}
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Copy Docker Compose file to EC2
+        run: scp -i ${{ secrets.PRIVATE_KEY }} docker-compose.yml ubuntu@54.221.2.22:~/docker-compose.yml
+
+      # - name: Set up SSH known hosts
+      #   uses: shimataro/ssh-key-action@v2
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ${{ secrets.EC2_USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     port: ${{ secrets.EC2_SSH_PORT }}
+
+      - name: SSH into EC2 and deploy containers
+        run: |
+          ssh -i ${{ secrets.PRIVATE_KEY }} <username>@<ec2-instance-ip> << 'EOF'
+            cd ~
+            export DB_HOST="${{ secrets.DB_HOST }}"
+            export DB_USER="${{ secrets.DB_USER }}"
+            export DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
+            export DB_NAME="${{ secrets.DB_NAME }}"
+            export DB_PORT="${{ secrets.DB_PORT }}"
+            export ALLOWED_ORIGINS="${{ secrets.ALLOWED_ORIGINS }}"
+            docker-compose up -d
+          EOF
+
+
+
+
+
+
+
+
+
+ 
+# jobs:
+
+#   scanning:
+#     name: GitGuardian scan and Trivy
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#         with:
+#           fetch-depth: 0 # fetch all history so multiple commits can be scanned
+#       - name: GitGuardian scan
+#         uses: GitGuardian/ggshield-action@v1.24.0
+#         env:
+#           GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+#           GITHUB_PUSH_BASE_SHA: ${{ github.event.base }}
+#           GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+#           GITGUARDIAN_API_KEY: ${{ secrets.GGS_TOKEN }}
     
       
-  ansible_final_deployment:
-    runs-on: ubuntu-latest
+#   ansible_final_deployment:
+#     runs-on: ubuntu-latest
 
-    steps:
+#     steps:
 
-    - name: Append Image Tag to .env file
-      run: |
-        echo "workflow" >> .env
+#     - name: Append Image Tag to .env file
+#       run: |
+#         echo "workflow" >> .env
         
-    - name: Checkout code
-      uses: actions/checkout@v2
+#     - name: Checkout code
+#       uses: actions/checkout@v2
         
-    - name: Install Ansible
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y ansible
+#     - name: Install Ansible
+#       run: |
+#         sudo apt-get update
+#         sudo apt-get install -y ansible
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.7.0
-      with:
-       ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-       log-public-key: false
-    - name: Set TAG variable
-      run: echo "TAG=${{ github.event.client_payload.image_tag }}" > $GITHUB_ENV
+#     - name: Set up SSH
+#       uses: webfactory/ssh-agent@v0.7.0
+#       with:
+#        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+#        log-public-key: false
+#     - name: Set TAG variable
+#       run: echo "TAG=${{ github.event.client_payload.image_tag }}" > $GITHUB_ENV
 
-    - name: Print TAG variable
-      run: |
-        echo "TAG is $TAG"
-        echo ${DB_HOST}
+#     - name: Print TAG variable
+#       run: |
+#         echo "TAG is $TAG"
+#         echo ${DB_HOST}
       
-    - name: Start Docker containers
-      run: |
-       export TAG="testing"
-       ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
+#     - name: Start Docker containers
+#       run: |
+#        export TAG="testing"
+#        ansible-playbook -i inventory.ini --user ubuntu --extra-vars="ansible_ssh_common_args='-o StrictHostKeyChecking=no'" playbook-2.yml
+
+
