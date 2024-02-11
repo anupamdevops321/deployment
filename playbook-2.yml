@@ -49,7 +49,7 @@
       copy:
         src: "{{ playbook_dir }}/.env"
         # dest: ~/.env
-        dest: home/ubuntu/.env
+        dest: /home/ubuntu/.env
       become: yes
 
     - name: Start Docker containers
