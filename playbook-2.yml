@@ -49,7 +49,7 @@
       copy:
         src: "{{ playbook_dir }}/.env"
         dest: ~/.env
-      become: yes
+      # become: yes
     - name: Set image tag
       ansible.builtin.set_fact:
         TAG: testenv
