@@ -57,7 +57,7 @@ jobs:
       run: echo "TAG=${{ github.event.client_payload.image_tag }}" > $GITHUB_ENV
 
     - name: Print TAG variable
-      run: 
+      run: |
         echo "TAG is $TAG"
         echo ${DB_HOST}
       
