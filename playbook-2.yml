@@ -47,7 +47,8 @@
 
     - name: Copy Docker .env file
       copy:
-        src: "{{ playbook_dir }}/.env"
+        # src: "{{ playbook_dir }}/.env"
+        src: "home/ubuntu/.env"
         dest: ~/.env
       become: yes
     - name: Set image tag
