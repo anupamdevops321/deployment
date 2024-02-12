@@ -46,8 +46,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            export MY_VAR=$TAG
-            echo $MY_VAR
+
             sed -i 's/^TAG=.*/TAG=${{ github.event.client_payload.image_tag }}/' .env
             sed -i 's/^DB_HOST=.*/DB_HOST=${{ secrets.DB_HOST }}/' .env
             sed -i 's/^DB_USER=.*/DB_USER=${{ secrets.DB_USER }}/' .env
@@ -55,9 +54,9 @@ jobs:
             sed -i 's/^DB_NAME=.*/DB_NAME=${{ secrets.DB_NAME }}/' .env
             sed -i 's/^DB_PORT=.*/DB_PORT=${{ secrets.DB_PORT }}/' .env
             sed -i 's/^ALLOWED_ORIGINS=.*/ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}/' .env
-            docker stop $(docker ps -aq)
-            docker rm -f $(docker ps -aq)
-            docker rmi -f $(docker images -q)
+            # docker stop $(docker ps -aq)
+            # docker rm -f $(docker ps -aq)
+            # docker rmi -f $(docker images -q)
                         
       - uses: alex-ac/github-action-ssh-docker-compose@master
         name: Docker-Compose Remote Deployment
