@@ -60,6 +60,7 @@ jobs:
           port: 22
           script: |
             whoami
+            ls -al
             export TAG="tag"
             export DB_HOST="${{ secrets.DB_HOST }}"
             export DB_USER="${{ secrets.DB_USER }}"
