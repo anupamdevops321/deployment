@@ -60,8 +60,7 @@ jobs:
           port: 22
           script: |
             whoami
-            ls -al
-            export TAG="tag"
+            sed -i 's/TAG="[^"]*"/TAG="new"/g' .env
             export DB_HOST="${{ secrets.DB_HOST }}"
             export DB_USER="${{ secrets.DB_USER }}"
             export DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
