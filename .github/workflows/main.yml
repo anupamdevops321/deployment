@@ -67,13 +67,13 @@ jobs:
             export MY_VAR=$TAG
             echo $MY_VAR
             sed -i 's/^TAG=.*/TAG=${{ secrets.DB_USER }}/' .env
-            export DB_HOST="${{ secrets.DB_HOST }}"
-            export DB_USER="${{ secrets.DB_USER }}"
-            export DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
-            export DB_NAME="${{ secrets.DB_NAME }}"
-            export DB_PORT="${{ secrets.DB_PORT }}"
-            export ALLOWED_ORIGINS="${{ secrets.ALLOWED_ORIGINS }}"
-            
+            sed -i 's/^DB_HOST=.*/DB_HOST=${{ secrets.DB_HOST }}/' .env
+            sed -i 's/^DB_USER=.*/DB_USER=${{ secrets.DB_USER }}/' .env
+            sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=${{ secrets.DB_PASSWORD }}/' .env
+            sed -i 's/^DB_NAME=.*/DB_NAME=${{ secrets.DB_NAME }}/' .env
+            sed -i 's/^DB_PORT=.*/DB_PORT=${{ secrets.DB_PORT }}/' .env
+            sed -i 's/^ALLOWED_ORIGINS=.*/ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}/' .env
+                        
       - uses: alex-ac/github-action-ssh-docker-compose@master
         name: Docker-Compose Remote Deployment
         with:
