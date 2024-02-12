@@ -60,14 +60,14 @@ jobs:
           port: 22
           script: |
             whoami
-            sed -i 's/TAG="[^"]*"/TAG="new"/g' .env
-            export DB_HOST="${{ secrets.DB_HOST }}"
-            export DB_USER="${{ secrets.DB_USER }}"
-            export DB_PASSWORD="${{ secrets.DB_PASSWORD }}"
-            export DB_NAME="${{ secrets.DB_NAME }}"
-            export DB_PORT="${{ secrets.DB_PORT }}"
-            export ALLOWED_ORIGINS="${{ secrets.ALLOWED_ORIGINS }}"
-    
+            sed -i 's/^TAG=.*/TAG="new"/' .env
+            export DB_HOST=$DB_HOST
+            export DB_USER=$DB_USER
+            export DB_PASSWORD=$DB_PASSWORD
+            export DB_NAME=$DB_NAME
+            export DB_PORT=$DB_PORT
+            export ALLOWED_ORIGINS=$ALLOWED_ORIGINS
+            
       - uses: alex-ac/github-action-ssh-docker-compose@master
         name: Docker-Compose Remote Deployment
         with:
