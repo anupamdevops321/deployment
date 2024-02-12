@@ -66,7 +66,7 @@ jobs:
           script: |
             export MY_VAR=$TAG
             echo $MY_VAR
-            sed -i 's/^TAG=.*/TAG={{ github.event.client_payload.image_tag }}/' .env
+            sed -i 's/^TAG=.*/TAG=${{ github.event.client_payload.image_tag }}/' .env
             sed -i 's/^DB_HOST=.*/DB_HOST=${{ secrets.DB_HOST }}/' .env
             sed -i 's/^DB_USER=.*/DB_USER=${{ secrets.DB_USER }}/' .env
             sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=${{ secrets.DB_PASSWORD }}/' .env
