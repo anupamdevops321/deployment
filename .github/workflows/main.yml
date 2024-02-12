@@ -9,14 +9,6 @@ on:
       - main
   repository_dispatch:
     types: [trigger-ansible]
-env:
- TAG: "test_tag"
- DB_HOST: "${{ secrets.DB_HOST }}"
- DB_USER: "${{ secrets.DB_USER }}"
- DB_PASSWORD=: ${{ secrets.DB_PASSWORD }}"
- DB_NAME: "${{ secrets.DB_NAME }}"
- DB_PORT: "${{ secrets.DB_PORT }}"
- ALLOWED_ORIGINS: "${{ secrets.ALLOWED_ORIGINS }}"
 
 jobs:
   deploy:
@@ -24,25 +16,15 @@ jobs:
 
     steps:
 
-      - name: Print secrets
-        run: |
-         echo "DB_HOST: ${{ secrets.DB_HOST }}"
-         echo "DB_USER: ${{ secrets.DB_USER }}"
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Install SSH key
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.PRIVATE_KEY }}
 
-      # - name: Copy Docker Compose file to EC2
-      #   run: scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@100.26.48.145:~/docker-compose.yml
-
       - name: ssh-scp-ssh-pipelines
         uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
         with:
-         host: 100.26.48.145
+         host: ${{ secrets.SERVER_IP }}
          user: ubuntu
          key: ${{ secrets.PRIVATE_KEY }}
 
@@ -77,7 +59,7 @@ jobs:
       - uses: alex-ac/github-action-ssh-docker-compose@master
         name: Docker-Compose Remote Deployment
         with:
-         ssh_host: 100.26.48.145
+         ssh_host: ${{ secrets.SERVER_IP }}
          ssh_private_key: ${{ secrets.PRIVATE_KEY }}
          ssh_user: ubuntu
          docker_compose_filename: /home/ubuntu/docker-compose.yml
