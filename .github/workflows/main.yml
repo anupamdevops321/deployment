@@ -8,7 +8,7 @@ on:
     branches:
       - main
   repository_dispatch:
-    types: [trigger-ansible]
+    types: [trigger-deployment]
 
 jobs:
   deploy:
@@ -55,6 +55,9 @@ jobs:
             sed -i 's/^DB_NAME=.*/DB_NAME=${{ secrets.DB_NAME }}/' .env
             sed -i 's/^DB_PORT=.*/DB_PORT=${{ secrets.DB_PORT }}/' .env
             sed -i 's/^ALLOWED_ORIGINS=.*/ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}/' .env
+            docker stop $(docker ps -aq)
+            docker rm -f $(docker ps -aq)
+            docker rmi -f $(docker images -q)
                         
       - uses: alex-ac/github-action-ssh-docker-compose@master
         name: Docker-Compose Remote Deployment
