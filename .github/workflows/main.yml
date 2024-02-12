@@ -59,7 +59,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            export MY_VAR="my_value"
+            export MY_VAR=$TAG
             echo $MY_VAR
             sed -i 's/^TAG=.*/TAG="new"/' .env
             export DB_HOST=$DB_HOST
