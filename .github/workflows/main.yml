@@ -60,6 +60,7 @@ jobs:
           port: 22
           script: |
             export MY_VAR="my_value"
+            echo $MY_VAR
             sed -i 's/^TAG=.*/TAG="new"/' .env
             export DB_HOST=$DB_HOST
             export DB_USER=$DB_USER
